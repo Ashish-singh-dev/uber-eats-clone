@@ -1,1 +1,1 @@
-# To do list app built in react native
+# Uber eats clone app built in react native
