@@ -25,6 +25,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.uber-eats-clone",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
