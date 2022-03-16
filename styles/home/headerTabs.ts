@@ -14,5 +14,6 @@ export const styles = StyleSheet.create({
   headerButtonText: {
     fontSize: 15,
     fontWeight: "bold",
+    textTransform: "capitalize",
   },
 });

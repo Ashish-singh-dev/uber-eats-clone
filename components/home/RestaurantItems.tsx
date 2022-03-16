@@ -9,6 +9,7 @@ import {
   ListRenderItemInfo,
 } from "react-native";
 import MaterilaCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useSelector } from "react-redux";
 import { styles } from "../../styles/home/restaurantItems";
 import ItemSeperator from "../common/ItemSeperator";
 import Categories from "./Categories";
@@ -39,7 +40,19 @@ interface IProps {
 }
 
 const RestaurantItems = ({ navigation }: IProps) => {
+  const [activeTabData, setActiveTabData] = useState<any[]>([]);
   const [restaurantData, setRestaurantData] = useState<any[]>([]);
+  const activeTab: string = useSelector(
+    // @ts-ignore
+    (state) => state.activeTabReducer.activeTab
+  );
+
+  useEffect(() => {
+    const data = restaurantData.filter((data) => {
+      return data.transactions.includes(activeTab.toLocaleLowerCase());
+    });
+    setActiveTabData(data);
+  }, [restaurantData, activeTab]);
 
   useEffect(() => {
     // get restaurants data
@@ -94,11 +107,11 @@ const RestaurantItems = ({ navigation }: IProps) => {
   // restaurants items
   return (
     <View style={{ flex: 1 }}>
-      {!restaurantData.length ? (
+      {!activeTabData.length ? (
         <Skeleton isLoading={true} />
       ) : (
         <FlatList
-          data={restaurantData}
+          data={activeTabData}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={ItemSeperator}

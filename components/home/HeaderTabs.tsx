@@ -1,25 +1,32 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useState } from "react";
 import { styles } from "../../styles/home/headerTabs";
+import { useDispatch, useSelector } from "react-redux";
 
 interface HeaderItemProps {
   text: string;
-  active: string;
   textColor: string;
   backgroundColor: string;
   setActiveTab: (prop: string) => void;
 }
 
 const HeaderTabs = () => {
-  const buttons = ["Delivery", "Pickup"];
-  const [activeTab, setActiveTab] = useState("Delivery");
+  const buttons = ["delivery", "pickup"];
+  // @ts-ignore
+  const activeTab = useSelector((state) => state.activeTabReducer.activeTab);
+  const dispatch = useDispatch();
+  const setActiveTab = (text: string) => {
+    dispatch({
+      type: "ACTIVE_TAB",
+      payload: text,
+    });
+  };
+
   return (
     <View style={styles.container}>
       {buttons.map((text, index) => (
         <HeaderButton
           key={index}
           text={text}
-          active={activeTab}
           setActiveTab={setActiveTab}
           textColor={activeTab === text ? "#fff" : "#121212"}
           backgroundColor={activeTab === text ? "#121212" : "#fff"}

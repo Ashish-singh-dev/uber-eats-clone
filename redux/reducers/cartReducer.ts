@@ -20,7 +20,7 @@ interface Action {
 
 export const cartReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_TO_CART": {
       let newState = { ...state };
       if (action.payload.isChecked) {
         newState.items = [...newState.items, action.payload.item];
@@ -32,6 +32,12 @@ export const cartReducer = (state = initialState, action: Action) => {
         newState.restaurantName = action.payload.restaurantName;
       }
       return newState;
+    }
+    case "UPDATE_RESTAURANT_NAME": {
+      let newState = { ...state };
+      newState.restaurantName = action.payload.restaurantName;
+      return newState;
+    }
     default:
       return state;
   }
